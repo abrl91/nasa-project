@@ -21,7 +21,8 @@ async function httpSubmitLaunch(launch) {
       }
     });
   }
-  catch(err) {
+  catch(error) {
+    console.log(error, 'error from httpSubmitLaunch');
     return {
       ok: false,
     }
@@ -29,8 +30,16 @@ async function httpSubmitLaunch(launch) {
 }
 
 async function httpAbortLaunch(id) {
-  // TODO: Once API is ready.
-  // Delete launch with given ID.
+  try {
+    await fetch(`${BASE_API_URL}/launches/:${id}`, {
+      method: "delete",
+    });
+  } catch (error) {
+    console.log(error, 'error from httpAbortLaunch');
+    return {
+      ok: false,
+    }
+  }
 }
 
 export {
